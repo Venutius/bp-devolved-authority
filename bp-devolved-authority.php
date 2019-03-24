@@ -134,39 +134,6 @@ Class BP_Devolved_Authority {
 }
 
 
-//hook to remove button
-function bpda_bp_devolved_authority_header_button() {
-	
-	global $bp;
-	
-	if (  $bp->loggedin_user->is_super_admin || $bp->loggedin_user->id == $bp->displayed_user->id ) {
-		return;
-	}
-	$displayed_user_id = bp_displayed_user_id();
-	$current_user_id = get_current_user_id();
-	$control_current_user = New BP_Devolved_Authority( $current_user_id );
-	
-	if ( $control_current_user->is_reply_only() ) {
-		$replied_ids = get_user_meta( $current_user_id, 'bpda_replied_user_ids', true );
-		if ( isset( $replied_ids ) && is_array( $replied_ids ) && in_array( $displayed_user_id, $replied_ids ) ) $replied = true;
-	}
-
-	$controlpm = New BP_Devolved_Authority( $displayed_user_id );
-	
-	$is_admin = user_can( $bp->displayed_user_id, 'administrator' );
-	
-	if ( bp_is_user() &&  ( $controlpm->is_disabled() || ( $control_current_user->is_reply_only() && ! isset( $replied ) && ! $is_admin ) || ( $control_current_user->is_admin_only() && ! $is_admin ) || $control_current_user->is_disabled() || ( $control_current_user->is_quota_met() && ! $is_admin ) ) ) {
-		remove_action( 'bp_member_header_actions',    'bp_send_private_message_button', 20 );
-	}
-	
-}
-
-if ( bp_get_theme_package_id() == 'legacy' ) {
-	add_action( 'bp_before_member_header', 'bpda_bp_devolved_authority_header_button' );
-}
-if ( bp_get_theme_package_id() == 'nouveau' ) {
-	add_action( 'bp_nouveau_get_members_buttons', 'bpda_check_private_message_button' );
-}
 
 // Main function to over-ride default bp_moderate behaviour and grant it to selected roles.
 function bpda_add_bp_moderate_cap_for_role( $caps = array(), $cap = '', $user_id = 0, $args = array() ) {
