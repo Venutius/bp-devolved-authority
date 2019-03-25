@@ -59,7 +59,7 @@ function bpda_bp_devolved_authority_admin_add_action_link( $links, $file ) {
 		return $links;
 
 	if ( function_exists( 'bp_core_do_network_admin' ) ) {
-		$settings_url = add_query_arg( 'page', 'bp-devolved-authority-settings', bp_core_do_network_admin() ? network_admin_url( 'admin.php' ) : admin_url( 'admin.php' ) );
+		$settings_url = add_query_arg( 'page', 'bp-devolved-authority-settings', bp_core_do_network_admin() ? network_admin_url( 'options-general.php' ) : admin_url( 'options-general.php' ) );
 	} else {
 		$settings_url = add_query_arg( 'page', 'bp-devolved-authority-settings', is_multisite() ? network_admin_url( 'admin.php' ) : admin_url( 'admin.php' ) );
 	}
