@@ -18,9 +18,6 @@ if(!defined('ABSPATH')) {
 function bpda_bp_devolved_authority_init() {
 
 	//load if we care
-	if ( !bp_is_active( 'messages' ) )
-		return;
-
 	load_textdomain( 'bp-devolved-authority', dirname( __FILE__ ) . '/languages/' );
 	
 	require( dirname( __FILE__ ) . '/bp-devolved-authority.php' );
