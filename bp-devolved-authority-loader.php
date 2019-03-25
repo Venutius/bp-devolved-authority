@@ -36,7 +36,7 @@ add_action( 'bp_include', 'bpda_bp_devolved_authority_init', 88 );
 function bpda_bp_devolved_authority_admin_add_admin_menu() {
 	global $bp;
 	
-	if ( !is_super_admin() )
+	if ( ! current_user_can( 'manage_options' ) )
 		return false;
 
 	//Add the component's administration tab under the "Setting" menu for site administrators
